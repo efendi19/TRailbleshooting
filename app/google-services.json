@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "288203691511",
+    "firebase_url": "https://trailbleshooting.firebaseio.com",
+    "project_id": "trailbleshooting",
+    "storage_bucket": "trailbleshooting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288203691511:android:b144cf554614206e018af2",
+        "android_client_info": {
+          "package_name": "com.tehkotak.trailbleshooting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288203691511-125s0r5g5ccbukiqf2ri3u1r1rkaecir.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tehkotak.trailbleshooting",
+            "certificate_hash": "3062c72cce04c8379947269c4e237db16823f8f6"
+          }
+        },
+        {
+          "client_id": "288203691511-om55c1l5pdvh4smfil630nvdgchnqv7k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDXnb1TwGwA3NJho8Xqr3g8s9mOxhyfok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288203691511-om55c1l5pdvh4smfil630nvdgchnqv7k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

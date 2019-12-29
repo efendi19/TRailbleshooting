@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIconTint="@color/colorPrimary"
+            app:tabRippleColor="@color/colorPrimary">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:icon="@drawable/ic_home1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:icon="@drawable/ic_profile1" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        app:fabType="roundedSquare"
+        app:fabIcon="@drawable/ic_camera"
+        android:layout_marginBottom="19dp"
+        app:rippleColor="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/imageeeee_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

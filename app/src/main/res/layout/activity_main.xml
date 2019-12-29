@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/ic_bg_actionbar" />
+
+        <LinearLayout
+            android:id="@+id/ly_actionBar_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_logo"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/logo" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_logout" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_say"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selamat siang"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_below="@id/ly_actionBar_custom"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="23dp"
+            android:textSize="17sp" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/fendhy_cartoon"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="5dp"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="3"
+            app:civ_shadow_color="#E0E0E0"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_say" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello,"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="25sp"
+        android:layout_marginStart="17dp"
+        android:textColor="#3F3D56" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spongebob Squarepants"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="20sp"
+        android:textColor="#3F3D56"
+        android:layout_marginStart="17dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_people"
+            android:layout_alignParentBottom="true" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnOrderPreserved="false"
+            android:alignmentMode="alignMargins"
+            android:layout_marginTop="19dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:padding="14dp">
+
+            <!--Card View 1-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_report"
+                android:layout_width="120dp"
+                android:layout_height="130dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/ic_report" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="#3F3D56"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--Card View 2-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_plan"
+                android:layout_width="120dp"
+                android:layout_height="170dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="55dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/ic_dailyplan" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Rencana Perbaikan"
+                        android:textColor="#3F3D56"
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--Card View 3-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_history"
+                android:layout_width="120dp"
+                android:layout_height="170dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/ic_history" />
+
+                    <TextView
+                        android:layout_width="81dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Riwayat Perbaikan"
+                        android:textColor="#3F3D56"
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_location"
+                android:layout_width="120dp"
+                android:layout_height="130dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/ic_location" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lokasi"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textSize="14sp"
+                        android:textColor="#3F3D56" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

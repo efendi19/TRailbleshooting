@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="300dp"
+    android:padding="5dp"
+    android:background="@android:color/white"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_camera_dialog"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yakin membuka kamera?"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:text="@string/akses_camera"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/btnClose_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="16sp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/primaryLight"
+                android:text="Tutup" />
+
+            <TextView
+                android:id="@+id/btnOpen_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:textSize="16sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Buka" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

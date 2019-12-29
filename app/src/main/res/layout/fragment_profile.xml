@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/logo_uc"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/under_const" />
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="33sp"
+            android:layout_below="@id/logo_uc"
+            android:text="Sorry.." />
+
+        <TextView
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-1dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Butuh waktu lama untuk memahami kamu lebih dalam :'("
+            android:textAlignment="center"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:text="versi.01|ngarep"/>-->
+
+</RelativeLayout>
