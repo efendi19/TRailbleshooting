@@ -1,6 +1,7 @@
 package com.tehkotak.trailbleshooting;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -37,22 +38,23 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_main, container, false);
 
         tv_username = v.findViewById(R.id.tv_username);
-        cv_1 = v.findViewById(R.id.cv_report);
+        //cv_1 = v.findViewById(R.id.cv_report);
         cv_2 = v.findViewById(R.id.cv_plan);
         cv_3 = v.findViewById(R.id.cv_history);
         cv_4 = v.findViewById(R.id.cv_location);
 
-        cv_1.setOnClickListener(new View.OnClickListener() {
+        /*cv_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Report is pressed!", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         cv_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Daily Plan is pressed!!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), ReportActivity.class));
             }
         });
 
@@ -66,7 +68,8 @@ public class HomeFragment extends Fragment {
         cv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Location is pressed!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "LocationActivity is pressed!!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), MapsActivity.class));
             }
         });
 

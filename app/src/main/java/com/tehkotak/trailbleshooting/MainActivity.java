@@ -1,38 +1,29 @@
 package com.tehkotak.trailbleshooting;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -55,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     Dialog dialogCamera;
 
-    private FloatingActionButton fabOpenCamera;
+    private FloatingActionButton fabOpenActInputData;
     String pathToFile;
 
     @Override
@@ -71,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tab_id);
         viewPager = findViewById(R.id.vp_id);
-        fabOpenCamera = findViewById(R.id.fab_id);
+        fabOpenActInputData = findViewById(R.id.fab_id);
 
         img_take = findViewById(R.id.imageeeee_id);
 
@@ -105,10 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        fabOpenCamera.setOnClickListener(new View.OnClickListener() {
+        fabOpenActInputData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowDialog(view);
+                //ShowDialog(view);
+                startActivity(new Intent(MainActivity.this, InputDataActivity.class));
             }
         });
     }
@@ -128,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
         btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
 
+                //startActivity(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
                 dispatchPictureTakerAction();
 
                 dialogCamera.dismiss();
@@ -156,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        /*Intent ganti = new Intent(MainActivity.this, KondisiPhotoActivity.class);
+        /*Intent ganti = new Intent(MainActivity.this, InputDataActivity.class);
         ganti.putExtra("photo", R.id.imageeeee_id);
         ganti.putExtra("coba", "Kangeeen");
         startActivity(ganti);*/

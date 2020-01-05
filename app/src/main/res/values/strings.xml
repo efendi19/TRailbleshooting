@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">TRailbleshooting</string>
     <string name="akses_camera">Aplikasi memerlukan akses kamera di android anda, izinkan untuk membuka atau tidak!</string>
+    <string name="doble_click">*Klik dua kali di kolom komentar untuk memunculkan titik koordinat</string>
+    <string name="title_activity_location">Map</string>
+    <string name="title_activity_maps">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
