@@ -20,6 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/bg_pojok">
+
+                </FrameLayout>
+
                 <TextView
                     android:id="@+id/tv_hello"
                     android:layout_width="wrap_content"
@@ -29,6 +36,7 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:paddingBottom="13dp"
                     android:text="Hello"
+                    android:textColor="#F08200"
                     android:textSize="40sp" />
 
                 <TextView
@@ -44,42 +52,43 @@
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="320dp"
-                android:layout_height="320dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/ic_icon" />
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_ptkai_notext" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mari masuk"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="#F08200"
+                android:layout_marginStart="30dp"
+                android:textSize="30sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
                 app:passwordToggleEnabled="false"
-                android:background="@drawable/rounded_edittext"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="15dp"
-                android:elevation="3dp">
+                android:layout_marginBottom="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:elevation="0.3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:drawableStart="@drawable/ic_email"
+                    android:layout_height="match_parent"
                     android:hint="Email"
                     android:fontFamily="@font/montserrat_bold"
                     android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textSize="14sp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="9dp" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,30 +97,22 @@
                 android:layout_height="58dp"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleContentDescription="itu"
-                android:background="@drawable/rounded_edittext"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:elevation="3dp">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:elevation="0.3dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_pass"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="5dp"
-                    android:background="@drawable/rounded_edittext"
+                    android:layout_height="match_parent"
                     android:hint="Password"
                     android:fontFamily="@font/montserrat_bold"
                     android:inputType="textPassword"
-                    android:drawableStart="@drawable/ic_pass"
                     android:lines="1"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textSize="14sp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="9dp" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,13 +131,16 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Masuk"
+                    android:textColor="#0B56A7"
                     android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/btn_masuk"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@drawable/enter"
+                    android:background="@drawable/ic_enter"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="0dp" />
 
             </LinearLayout>
@@ -156,6 +160,7 @@
                     android:layout_marginEnd="2dp"
                     android:fontFamily="@font/montserrat_regular"
                     android:text="Lupa password?"
+
                     android:layout_gravity="center_horizontal|bottom" />
 
                 <TextView
@@ -165,6 +170,7 @@
                     android:layout_marginStart="2dp"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Klik disini"
+                    android:textColor="#0B56A7"
                     android:layout_gravity="center_horizontal|bottom" />
 
             </LinearLayout>

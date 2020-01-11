@@ -26,12 +26,12 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:icon="@drawable/ic_home1" />
+                android:icon="@drawable/ic_home" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:icon="@drawable/ic_profile1" />
+                android:icon="@drawable/ic_profile" />
 
         </com.google.android.material.tabs.TabLayout>
 
@@ -44,6 +44,8 @@
         android:gravity="center"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
+        app:fabColor="@color/colorPrimaryDark"
+        app:borderWidth="9dp"
         app:fabType="roundedSquare"
         app:fabIcon="@drawable/ic_camera"
         android:layout_marginBottom="19dp"

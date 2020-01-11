@@ -2,11 +2,12 @@
 <androidx.cardview.widget.CardView android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="7dp"
-    android:layout_marginEnd="7dp"
+    android:layout_marginTop="17dp"
+    android:layout_marginStart="17dp"
+    android:layout_marginEnd="17dp"
     android:layout_marginBottom="5dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="3dp"
+    app:cardCornerRadius="9dp"
+    app:cardElevation="3.5dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -20,7 +21,7 @@
         <ImageView
             android:id="@+id/img_report"
             android:padding="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="200dp" />
 
         <ImageView
@@ -29,23 +30,61 @@
             android:layout_alignBottom="@id/img_report"
             android:src="@drawable/shadow_img" />
 
-        <TextView
-            android:text="Foto kerusakan di lapangan"
-            android:gravity="left"
-            android:id="@+id/tvNamaHewan"
+        <LinearLayout
+            android:id="@+id/ll_title_and_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="7dp"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_below="@id/img_report" />
+            android:layout_below="@id/img_report"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:text="Foto kerusakan"
+                android:gravity="start"
+                android:id="@+id/tvNamaHewan"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="top|start"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="17sp"
+                android:textAlignment="textStart"
+                android:maxLines="1"
+                android:lines="2"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|center_vertical"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvdatetime"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="Sen, 10-10-10"
+                android:layout_marginEnd="12dp"
+                android:maxLines="1"
+                android:lines="2"
+                android:gravity="end"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/montserrat_medium"
+                android:layout_gravity="top|center" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvNamaHewan"
+            android:layout_below="@id/ll_title_and_time"
             android:orientation="horizontal">
 
             <TextView
@@ -56,6 +95,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="7dp"
                 android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Komentar : " />
 
             <TextView
@@ -65,6 +105,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="7dp"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -95,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginEnd="5dp" />
 
             <TextView
@@ -102,6 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
+                android:fontFamily="@font/montserrat_regular"
                 android:gravity="start"
                 android:text=": Latitude" />
 
@@ -113,12 +156,14 @@
                 android:gravity="end"
                 android:textSize="13sp"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:text="" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:text=": Longitude"
                 android:gravity="end" />
         </LinearLayout>

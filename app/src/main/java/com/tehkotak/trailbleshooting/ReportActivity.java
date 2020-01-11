@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -30,37 +33,48 @@ public class ReportActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     FirebaseViewHolderAdapter adapter;
 
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
+    ProgressDialog progressDialog;
 
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
-    }*/
+    }
+
+    private ImageView icBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
+        dialogSetUp();
+
         rvReport = (RecyclerView) findViewById(R.id.rv_report);
         rvReport.setLayoutManager(new LinearLayoutManager(this));
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Data_kerusakan");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(InputDataActivity.database_path);
         databaseReference.keepSynced(true);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        icBack = findViewById(R.id.ic_back);
+
+        icBack.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayList = new ArrayList<DataModel>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     DataModel model = dataSnapshot1.getValue(DataModel.class);
                     arrayList.add(model);
                 }
-
+                if (rvReport != null) {
+                    progressDialog.dismiss();
+                } else {
+                    progressDialog.show();
+                }
                 adapter = new FirebaseViewHolderAdapter(ReportActivity.this, arrayList);
                 rvReport.setAdapter(adapter);
             }
@@ -71,5 +85,12 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void dialogSetUp() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Sedang mengambil data..");
+        progressDialog.setContentView(R.layout.layout_progressdialog);
+        progressDialog.show();
     }
 }

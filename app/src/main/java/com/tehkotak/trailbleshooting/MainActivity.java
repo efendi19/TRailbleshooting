@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton;
 
 import java.io.File;
@@ -33,6 +35,10 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class MainActivity extends AppCompatActivity {
 
+    //fire base for check account logged or not?
+    FirebaseUser firebaseUser;
+    FirebaseAuth firebaseAuth;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -40,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView img_take;
 
     private int[] tabIcons = {
-            R.drawable.ic_home1,
-            R.drawable.ic_profile1
+            R.drawable.ic_home,
+            R.drawable.ic_profile
     };
 
     Dialog dialogCamera;
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_home);
+
+        firebaseAuth = firebaseAuth.getInstance();
 
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
@@ -103,6 +111,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, InputDataActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        checkUserStatusLogin();
+        super.onStart();
+    }
+
+    private void checkUserStatusLogin() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            //user is signed stay here
+        } else {
+            //user is not sign in, go to Login Activity
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        }
     }
 
     public void ShowDialog(View v) {

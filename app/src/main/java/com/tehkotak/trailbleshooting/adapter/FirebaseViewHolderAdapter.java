@@ -36,19 +36,21 @@ public class FirebaseViewHolderAdapter extends RecyclerView.Adapter<FirebaseView
     @Override
     public void onBindViewHolder(@NonNull FirebaseViewHolderAdapter.Vholder holder, int position) {
         DataModel model = arrayListModel.get(position);
+
+        TextView strDateTime = holder.tvDatetime;
+        String imageProblem = arrayListModel.get(position).getImageURL();
         TextView strKomen = holder.tvKomen;
         TextView strLatitude = holder.tvLati;
         TextView strLongitude = holder.tvLongi;
-        String imageProblem = arrayListModel.get(position).getImageURL();
 
-        strKomen.setText(model.getKomentar());
-        strLatitude.setText(model.getLatitude());
-        strLongitude.setText(model.getLongitude());
-
+        strDateTime.setText(model.getDatetime());
         Picasso.get()
                 .load(imageProblem)
                 .placeholder(R.drawable.bg_people)
                 .into(holder.imgRep);
+        strKomen.setText(model.getKomentar());
+        strLatitude.setText(model.getLatitude());
+        strLongitude.setText(model.getLongitude());
     }
 
     @Override
@@ -59,16 +61,17 @@ public class FirebaseViewHolderAdapter extends RecyclerView.Adapter<FirebaseView
     public class Vholder extends RecyclerView.ViewHolder {
 
         TextView tvKomen, tvLati;
-        TextView tvLongi;
+        TextView tvLongi, tvDatetime;
         ImageView imgRep;
 
         public Vholder(@NonNull View itemView) {
             super(itemView);
 
+            tvDatetime = (TextView) itemView.findViewById(R.id.tvdatetime);
+            imgRep = (ImageView) itemView.findViewById(R.id.img_report);
             tvKomen = (TextView) itemView.findViewById(R.id.tv_kom);
             tvLati = (TextView) itemView.findViewById(R.id.tv_lat_inp);
             tvLongi = (TextView) itemView.findViewById(R.id.tv_longi_inp);
-            imgRep = (ImageView) itemView.findViewById(R.id.img_report);
         }
     }
 }

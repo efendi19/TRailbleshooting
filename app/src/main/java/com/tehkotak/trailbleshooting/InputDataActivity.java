@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,14 +25,19 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.images.ImageManager;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -54,8 +60,8 @@ public class InputDataActivity extends AppCompatActivity {
 
     //declare object used
     private Button btn_sendData;
-    private ImageView img_take;
-    private TextView tv_lati, tv_longi;
+    private ImageView img_take, icBack;
+    private TextView tv_lati, tv_longi, tvdateTime;
     private EditText et_comment;
 
     private String pictureFilePath;
@@ -73,6 +79,11 @@ public class InputDataActivity extends AppCompatActivity {
     DatabaseReference databaseRef;
     FirebaseDatabase database;
 
+    //==================khusus buat ambil images dari storage Fire base===============//
+    public String storage_path = "Gambar_kerusakan/";
+    public static final String database_path = "Data_kerusakan";
+    //==================khusus buat ambil images dari storage Fire base===============//
+
     private static final int GALERY_REQ = 1;
     private static final int CAMERA_REQ = 1;
 
@@ -89,6 +100,9 @@ public class InputDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_data);
+
+        //date time init
+        setUpDatedanTime();
 
         //permission camera access android SDK >= 23 to write external storage
         if (Build.VERSION.SDK_INT >= 23) {
@@ -109,13 +123,21 @@ public class InputDataActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]
                 {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
-
         //init object
         btn_sendData = findViewById(R.id.btn_sendData);
         img_take = findViewById(R.id.picture_condition);
         tv_lati = findViewById(R.id.tv_lat_inp);
         tv_longi = findViewById(R.id.tv_long_inp);
         et_comment = findViewById(R.id.et_comment);
+        tvdateTime = findViewById(R.id.tv_dateTime);
+        icBack = findViewById(R.id.ic_back_input_kerusakan);
+
+        icBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         et_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +165,7 @@ public class InputDataActivity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference("Gambar1" + UUID.randomUUID().toString());
 
         //realtime
-        databaseRef = FirebaseDatabase.getInstance().getReference("Data_kerusakan");
+        databaseRef = FirebaseDatabase.getInstance().getReference(database_path);
 
         img_take.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +184,31 @@ public class InputDataActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setUpDatedanTime() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                long date = System.currentTimeMillis();
+                                SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM/dd/yyyy hh:mm:ss a");
+                                String dateString = sdf.format(date);
+                                tvdateTime.setText(dateString);
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+        thread.start();
     }
 
     private void getLocation() {
@@ -238,57 +285,77 @@ public class InputDataActivity extends AppCompatActivity {
         dialog.show();
 
         File f = new File(pictureFilePath);
-        Uri picUri = Uri.fromFile(f);
+        final Uri picUri = Uri.fromFile(f);
         final String cloudFilePath = deviceIdentifier + picUri.getLastPathSegment();
 
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageRef = firebaseStorage.getReference();
-        final StorageReference uploadeRef = storageRef.child("Data Gambar/" + UUID.randomUUID().toString());
+        final StorageReference storageRef = firebaseStorage.getReference();
+        final StorageReference uploadeRef = storageRef.child(storage_path + UUID.randomUUID().toString());
 
+        UploadTask uploadTask = null;
 
-        String etKomen = et_comment.getText().toString().trim();
+        uploadeRef.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                /*final Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String mDownloadURI;
+                        mDownloadURI = uri.toString();
+
+                        UploadInfo info = new UploadInfo();
+                    }
+                });*/
+
+                String datetime = tvdateTime.getText().toString().trim();
+                String TempImageName = et_comment.getText().toString().trim();
+                String lat = tv_lati.getText().toString().trim();
+                String longi = tv_longi.getText().toString().trim();
+
+                dialog.dismiss();
+                Snackbar.make(ctxView,
+                        "Gambar berhasil di upload ke Database!",
+                        Snackbar.LENGTH_SHORT).show();
+
+                //UploadInfo imageUploadInfo = new UploadInfo(TempImageName, (taskSnapshot.getMetadata().toString()), lat, longi, datetime);
+                DataModel dataUpload = new DataModel(datetime, (taskSnapshot.getUploadSessionUri().toString()), TempImageName, lat, longi);
+                Log.e(TAG, "Berhasil upload data...");
+                String ImageUploadId = databaseRef.push().getKey();
+                databaseRef.child(ImageUploadId).setValue(dataUpload);
+
+                et_comment.setText("");
+                img_take.setImageResource(R.drawable.ic_camera_access);
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double dialogStatus = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                dialog.setMessage("Tunggu.. " + (int) dialogStatus + "%");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                dialog.dismiss();
+                Toast.makeText(InputDataActivity.this, "Data gambar kosong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       /* String etKomen = et_comment.getText().toString().trim();
         if (etKomen.matches("")) {
             dialog.dismiss();
             Snackbar.make(ctxView,
                     "komentar anda kosong!",
                     Snackbar.LENGTH_SHORT).show();
         } else
-            uploadeRef.putFile(picUri).addOnFailureListener(new OnFailureListener() {
-                public void onFailure(@NonNull Exception exception) {
-                    Log.e(TAG, "Failed to upload picture to cloud storage");
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            */
+       /*uploadeRef.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    String TempImageName = et_comment.getText().toString().trim();
-                    String lat = tv_lati.getText().toString().trim();
-                    String longi = tv_longi.getText().toString().trim();
-                    dialog.dismiss();
-                    Snackbar.make(ctxView,
-                            "Gambar berhasil di upload ke Database!",
-                            Snackbar.LENGTH_SHORT).show();
 
-                    UploadInfo imageUploadInfo = new UploadInfo(TempImageName, (taskSnapshot.getUploadSessionUri().toString()), lat, longi);
-                    Log.e(TAG, "Masalah di tv");
-                    String ImageUploadId = databaseRef.push().getKey();
-                    databaseRef.child(ImageUploadId).setValue(imageUploadInfo);
-
-                    et_comment.setText("");
-                    img_take.setImageResource(R.drawable.ic_camera_access);
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    dialog.dismiss();
-                    Toast.makeText(InputDataActivity.this, "Data gambar kosong!", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                    double dialogStatus = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    dialog.setMessage("Tunggu.. " + (int) dialogStatus + "%");
-                }
-            });
+       });*/
     }
 
     protected synchronized String getInstallationIdentifier() {
@@ -352,6 +419,8 @@ public class InputDataActivity extends AppCompatActivity {
     }*/
 
     private void dispatchPictureTakerAction() {
+
+
         Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePic.resolveActivity(getPackageManager()) != null) {
             File pictureFile = null;
@@ -392,6 +461,13 @@ public class InputDataActivity extends AppCompatActivity {
                 img_take.setImageURI(Uri.fromFile(imgFile));
             }
         }
+    }
+
+    public String getFileExtention(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 }
 

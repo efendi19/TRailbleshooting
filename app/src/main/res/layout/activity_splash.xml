@@ -7,8 +7,9 @@
     tools:context=".SplashActivity">
 
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
         android:layout_centerInParent="true">
 
         <ImageView
@@ -17,14 +18,14 @@
             android:layout_height="130dp"
             android:src="@drawable/ic_ptkai_notext"
             android:layout_centerInParent="true" />
-        <!--
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PT Kereta Api Indonesia"
-                    android:textSize="13sp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="19dp" />-->
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ic"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:indeterminate="true"
+            style="@android:style/Widget.Material.ProgressBar.Horizontal" />
 
     </RelativeLayout>
 

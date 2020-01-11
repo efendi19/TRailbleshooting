@@ -2,15 +2,18 @@ package com.tehkotak.trailbleshooting;
 
 public class DataModel {
 
+    String datetime;
     String imageURL;
     String komentar;
     String latitude;
     String longitude;
 
+
     public DataModel() {
     }
 
-    public DataModel(String imageURL, String komentar, String latitude, String longitude) {
+    public DataModel(String datetime, String imageURL, String komentar, String latitude, String longitude) {
+        this.datetime = datetime;
         this.imageURL = imageURL;
         this.komentar = komentar;
         this.latitude = latitude;
@@ -48,5 +51,13 @@ public class DataModel {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 }

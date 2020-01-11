@@ -21,27 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white">
-                <!--                <TextView
-                                    android:id="@+id/tv1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="7dp"
-                                    android:layout_marginEnd="7dp"
-                                    android:text="Bantu Salurkan?"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="17sp"
-                                    android:textStyle="bold" />
 
-                                <TextView
-                                    android:id="@+id/tv2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/tv1"
-                                    android:layout_marginStart="7dp"
-                                    android:layout_marginEnd="7dp"
-                                    android:layout_marginBottom="7dp"
-                                    android:text="Baru - baru ini"
-                                    android:textSize="13sp" />-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_report"
                     android:layout_width="match_parent"
@@ -81,12 +61,28 @@
             android:elevation="8dp"
             android:minHeight="?android:attr/actionBarSize">
 
-            <TextView
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ic_back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_back"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_marginEnd="7dp" />
+
+                <TextView
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Laporan Kerusakan"
                 android:textColor="@android:color/white" />
+
+            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
