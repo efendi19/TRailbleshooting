@@ -2,31 +2,28 @@ package com.tehkotak.trailbleshooting;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tehkotak.trailbleshooting.adapter.FirebaseViewHolderAdapter;
+import com.tehkotak.trailbleshooting.view.ReportView;
 
 import java.util.ArrayList;
 
-public class ReportActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity implements ReportView {
 
     private RecyclerView rvReport;
     private ArrayList<DataModel> arrayList;
@@ -42,6 +39,8 @@ public class ReportActivity extends AppCompatActivity {
 
     private ImageView icBack;
 
+    private String TAG = ReportActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,8 @@ public class ReportActivity extends AppCompatActivity {
         dialogSetUp();
 
         rvReport = (RecyclerView) findViewById(R.id.rv_report);
-        rvReport.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        rvReport.setLayoutManager(gridLayoutManager);
         databaseReference = FirebaseDatabase.getInstance().getReference().child(InputDataActivity.database_path);
         databaseReference.keepSynced(true);
 
@@ -65,7 +65,9 @@ public class ReportActivity extends AppCompatActivity {
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 arrayList = new ArrayList<DataModel>();
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     DataModel model = dataSnapshot1.getValue(DataModel.class);
                     arrayList.add(model);
@@ -77,6 +79,23 @@ public class ReportActivity extends AppCompatActivity {
                 }
                 adapter = new FirebaseViewHolderAdapter(ReportActivity.this, arrayList);
                 rvReport.setAdapter(adapter);
+
+                Log.d(TAG, "Menerima data Report Kerusakan dari server, jumlah item: " + arrayList.size());
+                for (DataModel modelResult : arrayList) {
+                    Log.w("Kerusakan : ", modelResult.getDatetime());
+                }
+
+                adapter.setOnItemClickListener(new FirebaseViewHolderAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Toast.makeText(ReportActivity.this, "Card View : " + arrayList.get(position).getKomentar(), Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ReportActivity.this, MapsKerusakanActivity.class);
+                        intent.putExtra("titiklat", arrayList.get(position).getLatitude());
+                        intent.putExtra("titiklongi", arrayList.get(position).getLongitude());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -92,5 +111,29 @@ public class ReportActivity extends AppCompatActivity {
         progressDialog.setMessage("Sedang mengambil data..");
         progressDialog.setContentView(R.layout.layout_progressdialog);
         progressDialog.show();
+    }
+
+    @Override
+    public void setReportView(ArrayList<DataModel> reportView) {
+        Log.d(TAG, "Menerima data Report Kerusakan dari server, jumlah item: " + reportView.size());
+        for (DataModel modelResult : reportView) {
+            Log.w("Kerusakan : ", modelResult.getDatetime());
+        }
+        setReportAdapter(reportView);
+    }
+
+    private void setReportAdapter(final ArrayList<DataModel> reportView) {
+        /*adapter = new FirebaseViewHolderAdapter(this, reportView);
+        rvReport.setAdapter(adapter);*/
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        //rvReport.setLayoutManager(gridLayoutManager);
+        /*rvReport.setNestedScrollingEnabled(true);
+
+        adapter.setOnItemClickListener(new FirebaseViewHolderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(ReportActivity.this, "Card View : " + reportView.get(position).getKomentar(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
 }

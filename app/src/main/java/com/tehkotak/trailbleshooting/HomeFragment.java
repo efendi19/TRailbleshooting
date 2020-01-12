@@ -87,8 +87,9 @@ public class HomeFragment extends Fragment {
         cv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "LocationActivity is pressed!!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), MapsActivity.class));
+                //Toast.makeText(getActivity(), "LocationActivity is pressed!!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), MapsMyLocationActivity.class));
+
             }
         });
 

@@ -27,7 +27,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser firebaseUser;
 
     private Button btnLogout;
-    private TextView tvName;
+    private TextView tvNameProfile;
 
 
     public ProfileFragment() {
@@ -47,7 +47,7 @@ public class ProfileFragment extends Fragment {
         getUserData();
 
         btnLogout = v.findViewById(R.id.btnLogout);
-        tvName = v.findViewById(R.id.tv_name);
+        tvNameProfile = v.findViewById(R.id.tv_nameProfile);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,11 +46,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.iceteck.silicompressorr.FileUtils;
+import com.iceteck.silicompressorr.SiliCompressor;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
@@ -68,10 +72,10 @@ public class InputDataActivity extends AppCompatActivity {
 
     //declare String for pathFileImage saving to phone storage
     private String pathToFile;
-    private String deviceIdentifier;
+    private String deviceIdentifier, date;
 
-    //declare uri path
-    private Uri filePath;
+    //declare imageURI
+    private Uri imageURI;
 
     //declare fire base storage
     FirebaseStorage fbStorage;
@@ -81,6 +85,7 @@ public class InputDataActivity extends AppCompatActivity {
 
     //==================khusus buat ambil images dari storage Fire base===============//
     public String storage_path = "Gambar_kerusakan/";
+    public String storage_imageAnu = "Image_anu/";
     public static final String database_path = "Data_kerusakan";
     //==================khusus buat ambil images dari storage Fire base===============//
 
@@ -88,6 +93,7 @@ public class InputDataActivity extends AppCompatActivity {
     private static final int CAMERA_REQ = 1;
 
     int Image_Request_Code = 7;
+    private static final int IMAGE_CAPTURE_CODE = 1001;
 
     //progressDialog
     private ProgressDialog dialog;
@@ -108,16 +114,6 @@ public class InputDataActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
         }
-
-        /*locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //check GPS enable or not
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //write method to enable GPS
-            enableGPS();
-        } else {
-            //GPS is already on then
-            getLocation();
-        }*/
 
         //permission GPS
         ActivityCompat.requestPermissions(this, new String[]
@@ -162,7 +158,8 @@ public class InputDataActivity extends AppCompatActivity {
         //init Fire Base
         database = FirebaseDatabase.getInstance();
         //storage
-        storageRef = FirebaseStorage.getInstance().getReference("Gambar1" + UUID.randomUUID().toString());
+        //storageRef = FirebaseStorage.getInstance().getReference("Gambar1" + UUID.randomUUID().toString());
+        storageRef = FirebaseStorage.getInstance().getReference();
 
         //realtime
         databaseRef = FirebaseDatabase.getInstance().getReference(database_path);
@@ -278,7 +275,64 @@ public class InputDataActivity extends AppCompatActivity {
     }
 
     private void addToCloud() {
+
         final View ctxView = findViewById(R.id.layout_inputData);
+
+        //start form oct
+        final StorageReference ImageName = storageRef.child(storage_imageAnu + imageURI.getLastPathSegment());
+        dialog.setTitle("Upload Data");
+        dialog.setMessage("sedang mengirim");
+        dialog.show();
+        File file = new File(SiliCompressor.with(this).compress(FileUtils.getPath(this, imageURI), new File(this.getCacheDir(), "temp")));
+        Uri uri = Uri.fromFile(file);
+
+        ImageName.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                ImageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("datetime", tvdateTime.getText().toString());
+                        hashMap.put("imageURL", String.valueOf(uri));
+                        hashMap.put("komentar", et_comment.getText().toString());
+                        hashMap.put("latitude", tv_lati.getText().toString());
+                        hashMap.put("longitude", tv_longi.getText().toString());
+                        dialog.dismiss();
+                        String ImageUploadId = databaseRef.push().getKey();
+
+                        databaseRef.child(ImageUploadId).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                dialog.dismiss();
+                                Snackbar.make(ctxView,
+                                        "Gambar berhasil di upload ke Database!",
+                                        Snackbar.LENGTH_SHORT).show();
+
+                                et_comment.setText("");
+                                img_take.setImageResource(R.drawable.ic_camera_access);
+                            }
+                        });
+                    }
+                });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double dialogStatus = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                dialog.setMessage("Tunggu.. " + (int) dialogStatus + "%");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                dialog.dismiss();
+                Toast.makeText(InputDataActivity.this, "Data gambar kosong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /*final View ctxView = findViewById(R.id.layout_inputData);
 
         dialog.setTitle("Upload Data");
         dialog.setMessage("sedang mengirim");
@@ -297,17 +351,6 @@ public class InputDataActivity extends AppCompatActivity {
         uploadeRef.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                /*final Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
-                firebaseUri.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String mDownloadURI;
-                        mDownloadURI = uri.toString();
-
-                        UploadInfo info = new UploadInfo();
-                    }
-                });*/
 
                 String datetime = tvdateTime.getText().toString().trim();
                 String TempImageName = et_comment.getText().toString().trim();
@@ -340,22 +383,7 @@ public class InputDataActivity extends AppCompatActivity {
                 dialog.dismiss();
                 Toast.makeText(InputDataActivity.this, "Data gambar kosong!", Toast.LENGTH_SHORT).show();
             }
-        });
-
-       /* String etKomen = et_comment.getText().toString().trim();
-        if (etKomen.matches("")) {
-            dialog.dismiss();
-            Snackbar.make(ctxView,
-                    "komentar anda kosong!",
-                    Snackbar.LENGTH_SHORT).show();
-        } else
-            */
-       /*uploadeRef.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                }
-       });*/
+        }); */
     }
 
     protected synchronized String getInstallationIdentifier() {
@@ -373,56 +401,20 @@ public class InputDataActivity extends AppCompatActivity {
         return deviceIdentifier;
     }
 
-    /*private void uploadData() {
-        final View ctxView = findViewById(R.id.layout_inputData);
-
-        dialog.setTitle("Upload Data");
-        dialog.setMessage("sedang mengirim");
-        dialog.show();
-
-        if (filePath != null) {
-            dialog.setTitle("Upload Data");
-            dialog.setMessage("Sedang mengirim data...");
-            dialog.show();
-
-            StorageReference ref = storageRef.child("Images/" + UUID.randomUUID().toString());
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            dialog.dismiss();
-                            Snackbar.make(ctxView,
-                                    "Sukses!",
-                                    Snackbar.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            dialog.dismiss();
-                            Snackbar.make(ctxView,
-                                    "Gagal mengirim data!",
-                                    Snackbar.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                            double dialogStatus = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            dialog.setMessage("Tunggu.." + (int) dialogStatus + "%");
-                        }
-                    });
-        } else {
-            //Snackbar.make(contextView, "Pressed!", Snackbar.LENGTH_SHORT).show();
-            Toast.makeText(InputDataActivity.this, "Data gambar kosong!", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
     private void dispatchPictureTakerAction() {
 
+        // start from oct
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "New Picture");
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
+        imageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
         Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePic.resolveActivity(getPackageManager()) != null) {
+        takePic.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
+        startActivityForResult(takePic, IMAGE_CAPTURE_CODE);
+        //end form oct
+
+        /*if (takePic.resolveActivity(getPackageManager()) != null) {
             File pictureFile = null;
             pictureFile = createPictureFile();
 
@@ -432,7 +424,7 @@ public class InputDataActivity extends AppCompatActivity {
                 takePic.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
                 startActivityForResult(takePic, 1);
             }
-        }
+        }*/
     }
 
     private File createPictureFile() {
@@ -454,13 +446,19 @@ public class InputDataActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        //start from oct
+        if (resultCode == RESULT_OK) {
+            img_take.setImageURI(imageURI);
+        }
+        //end form oct
+
+        /*if (requestCode == 1 && resultCode == RESULT_OK) {
             File imgFile = new File(pictureFilePath);
 
             if (imgFile.exists()) {
                 img_take.setImageURI(Uri.fromFile(imgFile));
             }
-        }
+        }*/
     }
 
     public String getFileExtention(Uri uri) {

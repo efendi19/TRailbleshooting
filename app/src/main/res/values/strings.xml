@@ -4,6 +4,7 @@
     <string name="doble_click">*Klik dua kali di kolom komentar untuk memunculkan titik koordinat</string>
     <string name="title_activity_location">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps_my_location">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

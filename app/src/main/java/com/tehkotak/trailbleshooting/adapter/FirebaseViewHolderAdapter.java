@@ -15,11 +15,13 @@ import com.tehkotak.trailbleshooting.DataModel;
 import com.tehkotak.trailbleshooting.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseViewHolderAdapter extends RecyclerView.Adapter<FirebaseViewHolderAdapter.Vholder> {
 
     Context context;
-    ArrayList<DataModel> arrayListModel;
+    List<DataModel> arrayListModel;
+    private OnItemClickListener mListener;
 
     public FirebaseViewHolderAdapter(Context context, ArrayList<DataModel> arrayListModel) {
         this.context = context;
@@ -29,7 +31,11 @@ public class FirebaseViewHolderAdapter extends RecyclerView.Adapter<FirebaseView
     @NonNull
     @Override
     public FirebaseViewHolderAdapter.Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Vholder(LayoutInflater.from(context).inflate(R.layout.item_daily_report, parent, false));
+        //return new Vholder(LayoutInflater.from(context).inflate(R.layout.item_daily_report, parent, false));
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.item_daily_report, parent, false);
+        Vholder report = new Vholder(view, mListener);
+        return report;
 
     }
 
@@ -58,13 +64,19 @@ public class FirebaseViewHolderAdapter extends RecyclerView.Adapter<FirebaseView
         return arrayListModel.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+        //void onItemButtonClick if needed
+    }
+
+
     public class Vholder extends RecyclerView.ViewHolder {
 
         TextView tvKomen, tvLati;
         TextView tvLongi, tvDatetime;
         ImageView imgRep;
 
-        public Vholder(@NonNull View itemView) {
+        public Vholder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             tvDatetime = (TextView) itemView.findViewById(R.id.tvdatetime);
@@ -72,6 +84,23 @@ public class FirebaseViewHolderAdapter extends RecyclerView.Adapter<FirebaseView
             tvKomen = (TextView) itemView.findViewById(R.id.tv_kom);
             tvLati = (TextView) itemView.findViewById(R.id.tv_lat_inp);
             tvLongi = (TextView) itemView.findViewById(R.id.tv_longi_inp);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mListener = onItemClickListener;
+    }
+
 }
