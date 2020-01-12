@@ -41,7 +41,7 @@
             >
 
             <TextView
-                android:text="Foto kerusakan"
+                android:text="Damage details"
                 android:gravity="start"
                 android:id="@+id/tvNamaHewan"
                 android:layout_width="0dp"
@@ -96,7 +96,7 @@
                 android:layout_marginTop="7dp"
                 android:textSize="14sp"
                 android:fontFamily="@font/montserrat_regular"
-                android:text="Komentar : " />
+                android:text="Comment : " />
 
             <TextView
                 android:id="@+id/tv_kom"

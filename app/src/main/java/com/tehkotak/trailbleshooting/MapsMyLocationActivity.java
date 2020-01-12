@@ -84,12 +84,12 @@ public class MapsMyLocationActivity extends FragmentActivity implements OnMapRea
         }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (location != null) {
-            Toast.makeText(this, "Lokasi Ditemukan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "location found", Toast.LENGTH_SHORT).show();
             LatLng MyLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(MyLocation).title("Lokasi Saya " + location.getLatitude()).snippet("" + location.getLongitude()));
+            mMap.addMarker(new MarkerOptions().position(MyLocation).title("My Location " + location.getLatitude()).snippet("" + location.getLongitude()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MyLocation, 13));
         } else {
-            Toast.makeText(this, "Lokasi Tidak Di temukan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sorry, could not find your location!", Toast.LENGTH_SHORT).show();
         }
         // Add a marker in Sydney and move the camera
         /*LatLng sydney = new LatLng(-34, 151);

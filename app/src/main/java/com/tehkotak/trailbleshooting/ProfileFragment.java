@@ -6,15 +6,20 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -28,6 +33,7 @@ public class ProfileFragment extends Fragment {
 
     private Button btnLogout;
     private TextView tvNameProfile;
+    private ImageView icEdit;
 
 
     public ProfileFragment() {
@@ -44,10 +50,21 @@ public class ProfileFragment extends Fragment {
 
         firebaseAuth = firebaseAuth.getInstance();
 
-        getUserData();
+        //getUserData();
 
         btnLogout = v.findViewById(R.id.btnLogout);
         tvNameProfile = v.findViewById(R.id.tv_nameProfile);
+        icEdit = v.findViewById(R.id.ic_edit);
+        final View ctxView = v.findViewById(R.id.cl_profile);
+
+        icEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(ctxView,
+                        "Coming soon..",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,28 +78,20 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onStart() {
-        checkUserLogin();
         super.onStart();
-    }
-
-    private void checkUserLogin() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            //user is signed stay here
-        } else {
-            //user is not sign in, go to Login Activity
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+        getUserData();
     }
 
     private void getUserData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            Log.d(TAG, "Nama User adalah : " + user.getDisplayName());
+            String nama = user.getDisplayName();
+            //String name = user.getDisplayName();
+            tvNameProfile.setText(nama);
+        } else {
             String email = user.getEmail();
-            //tvName.setText(email);
+            tvNameProfile.setText(email);
         }
     }
 
@@ -91,7 +100,7 @@ public class ProfileFragment extends Fragment {
         Intent in = new Intent(getActivity(), LoginActivity.class);
         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(in);
-        Toast.makeText(getActivity(), "Berhasil keluar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Logout successfully", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
@@ -28,7 +29,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Spongebob Squarepants"
                     android:textSize="19dp" />
 
                 <TextView
@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:fontFamily="@font/montserrat_medium"
-                        android:text="SpongebobS@gmail.com"
+                        android:text="null@gmail.com"
                         android:layout_marginStart="20dp" />
 
 
@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:fontFamily="@font/montserrat_medium"
-                        android:text="Jl. Soekarno Hatta No. 63 Bandung"
+                        android:text="null"
                         android:layout_marginStart="20dp" />
 
 
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:fontFamily="@font/montserrat_medium"
-                        android:text="+6285512345678"
+                        android:text="null"
                         android:layout_marginStart="20dp" />
 
 
@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:fontFamily="@font/montserrat_medium"
-                        android:text="Laki-laki"
+                        android:text="null"
                         android:layout_marginStart="20dp" />
 
 
@@ -248,7 +248,7 @@
                     android:textColor="@android:color/white" />
 
                 <ImageView
-                    android:id="@+id/ic_back"
+                    android:id="@+id/ic_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"

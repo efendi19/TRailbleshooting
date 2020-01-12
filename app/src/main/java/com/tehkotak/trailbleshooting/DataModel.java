@@ -7,17 +7,19 @@ public class DataModel {
     String komentar;
     String latitude;
     String longitude;
+    String name;
 
 
     public DataModel() {
     }
 
-    public DataModel(String datetime, String imageURL, String komentar, String latitude, String longitude) {
+    public DataModel(String datetime, String imageURL, String komentar, String latitude, String longitude, String name) {
         this.datetime = datetime;
         this.imageURL = imageURL;
         this.komentar = komentar;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.name = name;
 
     }
 
@@ -59,5 +61,13 @@ public class DataModel {
 
     public void setDatetime(String datetime) {
         this.datetime = datetime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

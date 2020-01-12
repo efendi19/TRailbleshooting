@@ -12,9 +12,9 @@
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">#6C63FF</item>
-        <item name="colorPrimaryDark">#3F3D56</item>
-        <item name="colorAccent">#3F3D56</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!--action bar transparent-->

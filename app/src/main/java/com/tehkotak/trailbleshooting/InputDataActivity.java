@@ -255,7 +255,7 @@ public class InputDataActivity extends AppCompatActivity {
                 tv_longi.setText(longitude);
 
             } else {
-                Toast.makeText(InputDataActivity.this, "Tidak bisa menemukan lokasi anda!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputDataActivity.this, "Sorry, could not find your location!", Toast.LENGTH_SHORT).show();
             }
 
             //run
@@ -264,7 +264,7 @@ public class InputDataActivity extends AppCompatActivity {
 
     private void enableGPS() {
         final AlertDialog.Builder builde = new AlertDialog.Builder(this);
-        builde.setMessage("GPS anda tidak aktif sekarang").setCancelable(false).setPositiveButton("Aktifkan", new DialogInterface.OnClickListener() {
+        builde.setMessage("Your GPS is off").setCancelable(false).setPositiveButton("Activate now", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -280,8 +280,8 @@ public class InputDataActivity extends AppCompatActivity {
 
         //start form oct
         final StorageReference ImageName = storageRef.child(storage_imageAnu + imageURI.getLastPathSegment());
-        dialog.setTitle("Upload Data");
-        dialog.setMessage("sedang mengirim");
+        dialog.setTitle("Uploading..");
+        dialog.setMessage("Please wait..");
         dialog.show();
         File file = new File(SiliCompressor.with(this).compress(FileUtils.getPath(this, imageURI), new File(this.getCacheDir(), "temp")));
         Uri uri = Uri.fromFile(file);
@@ -307,7 +307,7 @@ public class InputDataActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 dialog.dismiss();
                                 Snackbar.make(ctxView,
-                                        "Gambar berhasil di upload ke Database!",
+                                        "Successfully yeah",
                                         Snackbar.LENGTH_SHORT).show();
 
                                 et_comment.setText("");
@@ -321,13 +321,13 @@ public class InputDataActivity extends AppCompatActivity {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                 double dialogStatus = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                dialog.setMessage("Tunggu.. " + (int) dialogStatus + "%");
+                dialog.setMessage("Please wait.. " + (int) dialogStatus + " %");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 dialog.dismiss();
-                Toast.makeText(InputDataActivity.this, "Data gambar kosong!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputDataActivity.this, "Something wrong!", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -32,7 +32,7 @@
                     android:layout_marginEnd="30dp"
                     android:fontFamily="@font/montserrat_bold"
                     android:paddingBottom="19dp"
-                    android:text="Input Data Kerusakan"
+                    android:text="Input Data"
                     android:textColor="@color/colorPrimary"
                     android:textSize="28sp" />
 
@@ -44,7 +44,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Kondisi dilapangan sekarang"
+                    android:text="Current condition!"
                     android:textSize="17sp" />
 
             </RelativeLayout>
@@ -86,7 +86,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
-                            android:text="Ambil photo disini!"
+                            android:text="Take photo!"
                             android:paddingBottom="7dp"
                             android:textColor="#BDBDDF" />
 
@@ -105,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
-                        android:text="Titik koordinat : "
+                        android:text="Coordinate : "
                         android:textSize="15sp"
                         android:fontFamily="@font/montserrat_regular" />
 
@@ -143,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Waktu : "
+                        android:text="Time : "
                         android:textSize="15sp"
                         android:fontFamily="@font/montserrat_regular" />
 
@@ -164,7 +164,7 @@
                     android:ems="10"
                     android:fontFamily="@font/montserrat_medium"
                     android:gravity="start|top"
-                    android:hint="Komentar disini ..."
+                    android:hint="Comment here ..."
                     android:inputType="textMultiLine"
                     android:minLines="3"
                     android:padding="14dp" />
@@ -184,7 +184,7 @@
                     android:layout_marginTop="17dp"
                     android:background="@drawable/rounded_button"
                     android:fontFamily="@font/montserrat_medium"
-                    android:text="Kirim Sekarang"
+                    android:text="Send Now"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:focusable="true"
@@ -234,7 +234,7 @@
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Input Kerusakan"
+                    android:text="Input Data"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>

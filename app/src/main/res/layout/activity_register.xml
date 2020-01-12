@@ -19,16 +19,14 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@drawable/bg_pojok"></FrameLayout>
+                android:background="@drawable/bg_pojok">
+
+            </FrameLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="center">
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:id="@+id/icon_img_reg"
@@ -36,6 +34,7 @@
                     android:layout_height="250dp"
                     android:layout_gravity="center_horizontal"
                     android:paddingBottom="40dp"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_ptkai_notext" />
 
                 <TextView
@@ -46,18 +45,44 @@
                     android:layout_alignParentStart="true"
                     android:fontFamily="@font/montserrat_bold"
                     android:paddingBottom="15dp"
-                    android:text="Buat akun baru"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:text="Create New Account"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="37sp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/tv_create_account"
                     android:layout_alignParentStart="true"
-                    android:text="Mari perbaiki bersama!" />
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:text="Let's fix it together!" />
 
             </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:elevation="0.3dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_name_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -108,29 +133,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="0.3dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_pass_conf_reg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Confirmasi password"
-                    android:inputType="textPassword"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textSize="14sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,8 +147,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Daftar"
-                    android:textAllCaps="true"
+                    android:text="Register Now"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -174,7 +176,7 @@
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_marginEnd="2dp"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Sudah punya akun?" />
+                    android:text="Have an account?" />
 
                 <TextView
                     android:id="@+id/tv_masuk"
@@ -184,7 +186,7 @@
                     android:layout_marginStart="2dp"
                     android:fontFamily="@font/montserrat_bold"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="Masuk disini" />
+                    android:text="Sign in" />
 
             </LinearLayout>
 

@@ -8,22 +8,25 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
+import java.util.ArrayList;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +41,9 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+
+    private ArrayList<DataModel> arrayList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -58,6 +64,7 @@ public class HomeFragment extends Fragment {
         userNam = v.findViewById(R.id.tv_username);
 
         onUserData();
+        //getUsername();
 
         icInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +85,7 @@ public class HomeFragment extends Fragment {
         cv_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Daily Plan is pressed!!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Daily Plan is pressed!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), ReportActivity.class));
             }
         });
@@ -104,11 +111,37 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
+    private void getUsername() {
+        // Read from the database
+        firebaseUser = firebaseAuth.getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef = database.getReference("UserOfficer").child(firebaseUser.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(firebaseUser.getUid());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String ioi = dataSnapshot.child("Name").getValue().toString();
+                Log.d(TAG, "Value is: " + ioi);
+                userNam.setText(ioi);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         checkUserLogin();
         super.onStart();
     }
+
 
     private void checkUserLogin() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -134,7 +167,9 @@ public class HomeFragment extends Fragment {
     private void onUserData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            Log.d(TAG, "User Login adalah : " + user.getEmail());
             String email = user.getEmail();
+            //String name = user.getDisplayName();
             userNam.setText(email);
         }
         /*Query query = databaseReference.orderByChild("email").equalTo(firebaseUser.getEmail());
@@ -147,6 +182,7 @@ public class HomeFragment extends Fragment {
                     String username = ""+ds.child("name").getValue();
                     String email = ""+ds.child("email").getValue();
                     String photo = ""+ds.child("photo").getValue();
+                    Log.d(TAG, "Value is: " + value);
 
                     //set data
                     userNam.setText(username);

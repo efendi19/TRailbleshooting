@@ -88,7 +88,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView {
                 adapter.setOnItemClickListener(new FirebaseViewHolderAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        Toast.makeText(ReportActivity.this, "Card View : " + arrayList.get(position).getKomentar(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ReportActivity.this, "Card View : " + arrayList.get(position).getKomentar(), Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(ReportActivity.this, MapsKerusakanActivity.class);
                         intent.putExtra("titiklat", arrayList.get(position).getLatitude());
@@ -108,7 +108,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView {
 
     private void dialogSetUp() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Sedang mengambil data..");
+        progressDialog.setMessage("Please wait..");
         progressDialog.setContentView(R.layout.layout_progressdialog);
         progressDialog.show();
     }

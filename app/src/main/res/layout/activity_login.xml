@@ -46,14 +46,14 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="40dp"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Keselamatan selalu diutamakan!"
+                    android:text="Safety first!"
                     android:textSize="15sp" />
 
             </RelativeLayout>
 
             <ImageView
                 android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mari masuk"
+                android:text="Sign in"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="#F08200"
                 android:layout_marginStart="30dp"
@@ -116,6 +116,14 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnSigninWithGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginEnd="28dp" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Masuk"
+                    android:text="Sign in"
                     android:textColor="#0B56A7"
                     android:textSize="20sp" />
 
@@ -159,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="Lupa password?"
+                    android:text="Don't have an account?"
 
                     android:layout_gravity="center_horizontal|bottom" />
 
@@ -169,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Klik disini"
+                    android:text="Register"
                     android:textColor="#0B56A7"
                     android:layout_gravity="center_horizontal|bottom" />
 

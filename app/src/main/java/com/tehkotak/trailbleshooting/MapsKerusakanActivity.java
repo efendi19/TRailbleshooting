@@ -81,7 +81,7 @@ public class MapsKerusakanActivity extends FragmentActivity implements OnMapRead
 
         float zoomLevel = 16.0f;
         LatLng bandung = new LatLng(dLati, dLongi);
-        mMap.addMarker(new MarkerOptions().position(bandung).title("Lokasi kerusakan").snippet("" + bandung));
+        mMap.addMarker(new MarkerOptions().position(bandung).title("Location").snippet("" + bandung));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bandung, zoomLevel));
     }
 }
